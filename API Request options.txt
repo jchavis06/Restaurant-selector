@@ -1,0 +1,55 @@
+
+Possible Endpoints:
+
+	Search
+	Phone Search (don’t really need this one)
+	Transaction Search
+	Business
+	Reviews
+	Autocomplete
+
+Search Endpoint request options:
+
+	term (“food”, “restaurant”)
+	location
+	latitude, longitude
+	radius
+	categories
+	limit
+	price
+	open_now
+	open_at
+	attributes (e.g. “deals”, “waitlist_reservation”)
+
+
+Search Endpoint response body:
+	number of businesses found
+	image of the business
+	price of business
+	transaction types
+	location
+
+Transaction Search request options:
+
+	Only option available is delivery
+	give location or latitude and longitude of desired 		delivery.
+
+Transaction endpoint response body: 
+
+
+
+
+Business request options:
+
+	No parameters (must give it a business id number)
+
+Business response body:
+
+	can get images of the business
+	hours
+	is_open
+	yelp reviews
+	phone number
+	website
+
+
