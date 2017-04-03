@@ -1,0 +1,30 @@
+<h1> Restaurant Selector</h1>
+
+
+<main class="mainQ4">
+<%= form_tag '/home/question4' do %>
+
+<ul>
+<label>
+  <%= radio_button_tag(:dining, "pickup", :required => true) %>
+  Pick-Up
+</label>
+<label>
+  <%= radio_button_tag(:dining, "dine-in") %>
+  Dine-In
+</label>
+<label>
+  <%= radio_button_tag(:dining, "delivery") %>
+  Delivery
+</label>
+</ul>
+
+  <%= hidden_field_tag 'term', @term %>
+  <%= hidden_field_tag 'location', @location %>
+  <%= hidden_field_tag 'distance', @distance %>
+
+  <%= submit_tag "Next", :class => "submit"  %>
+
+</main>
+
+<% end %>

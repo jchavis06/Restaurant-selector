@@ -1,0 +1,23 @@
+<h1> Restaurant Selector</h1>
+
+
+<div class="mainQ2">
+<%= form_tag '/home/question2' do %>
+
+
+  <%= label_tag(:location, "Location") %>
+  <br><br>
+  <%= text_field_tag(:location, nil, :required => true) %>
+
+
+  <%= hidden_field_tag 'term', @term %>
+  <br>
+  <%= submit_tag "Next", :class => "submit"  %>
+<% end %>
+</div>
+
+<script>
+  var input = document.getElementById("location");
+  input.focus();
+  input.select();
+</script>

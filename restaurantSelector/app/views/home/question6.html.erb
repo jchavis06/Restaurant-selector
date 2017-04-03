@@ -1,0 +1,30 @@
+<h1> Restaurant Selector</h1>
+
+<main class="mainQ6">
+<%= form_tag '/home/submit' do %>
+
+  <ul>
+    <label>
+    <%= radio_button_tag(:sort_by, "best_match", :required => true) %>
+    Best-Match
+  </label>
+  <label>
+    <%= radio_button_tag(:sort_by, "rating") %>
+    Rating
+  </label>
+  <label>
+    <%= radio_button_tag(:sort_by, "distance") %>
+    Distance
+  </label>
+  </ul>
+    <%= hidden_field_tag 'term', @term %>
+    <%= hidden_field_tag 'location', @location %>
+    <%= hidden_field_tag 'distance', @distance %>
+    <%= hidden_field_tag 'dining', @dining %>
+    <%= hidden_field_tag 'price', @price %>
+
+  <%= submit_tag "Submit", :class => "submit"  %>
+
+</main>
+
+<% end %>

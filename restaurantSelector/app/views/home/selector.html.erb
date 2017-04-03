@@ -1,0 +1,71 @@
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <%= stylesheet_link_tag "application" %>
+    <h1 id="header">Restaurant Selector</h1>
+
+
+    <%= form_tag home_path do %>
+
+
+      <%= label_tag(:term, "Search") %>
+      <br><br>
+      <%= text_field_tag(:term) %>
+      <br><br>
+      <%= label_tag(:location, "Location searching in: ") %>
+      <br><br>
+      <%= text_field_tag(:location) %>
+      <br><br>
+      <%= label_tag(:restaurant, "Distance to Restaurant") %>
+      <br><br>
+      <%= range_field(:restaurant, :distance, in: 1..25, step: 1, value: 1, onChange: "displayMiles(this.value)") %>
+      <span id="distance">0 miles</span>
+      <br><br>
+      <%= radio_button_tag(:dining, "pickup") %>
+      <%= label_tag(:dining_carryout, "Pick-up") %>
+      <%= radio_button_tag(:dining, "dine-in") %>
+      <%= label_tag(:dining_dinein, "Dine-In") %>
+      <%= radio_button_tag(:dining, "delivery") %>
+      <%= label_tag(:dining_delivery, "Delivery") %>
+      <br><br>
+      <%= label_tag(:restaurant_price, "Restaurant Price") %>
+      <br><br>
+      <%= range_field(:restaurant, :price, in: 1..4, step: 1, value: 1, onChange: "displayMoney(this.value)") %>
+      <span id="price">$</span>
+      <br><br>
+      <%= label_tag(:sort_by_tag, "Sort Results By") %>
+      <br><br>
+      <ul>
+        <%= radio_button_tag(:sort_by, "best_match") %>
+        <%= label_tag(:sort_by_best_match, "Best Match") %>
+        <%= radio_button_tag(:sort_by, "rating") %>
+        <%= label_tag(:sort_by_rating, "Rating") %>
+        <%= radio_button_tag(:sort_by, "distance") %>
+        <%= label_tag(:sort_by_distance, "Distance") %>
+      </ul>
+      <br><br>
+      <%= submit_tag "Submit form", :class => "submit"  %>
+
+    <% end %>
+
+    <script>
+        var radius = 0;
+        var rating = 0;
+        var money = 0;
+        var dining = 0;
+
+
+        function selectDining(type) {
+          this.dining = type;
+          //do more effects when the user actually selects a dining type.
+
+        }
+
+
+    </script>
+  </body>
+</html>

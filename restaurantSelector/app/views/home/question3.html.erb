@@ -1,0 +1,25 @@
+<h1> Restaurant Selector</h1>
+
+
+<main class="mainQ3">
+<%= form_tag '/home/question3' do %>
+
+  <%= label_tag(:restaurant, "Distance to Restaurant") %>
+  <br><br>
+  <%= range_field(:restaurant, :distance, in: 1..25, step: 1, value: 1, onChange: "displayMiles(this.value)") %>
+  <span id="distance">0 miles</span>
+
+  <%= hidden_field_tag 'location', @location %>
+  <%= hidden_field_tag 'term', @term %>
+  <br>
+  <%= submit_tag "Next", :class => "submit"  %>
+<% end %>
+
+</main>
+
+<script>
+ function displayMiles(miles) {
+   radius = miles;
+   document.getElementById("distance").innerHTML = miles + " miles";
+ }
+</script

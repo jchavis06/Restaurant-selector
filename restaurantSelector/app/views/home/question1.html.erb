@@ -1,0 +1,22 @@
+<h1> Restaurant Selector</h1>
+
+<main class="mainQ1">
+<%= form_tag '/home/question1' do %>
+
+
+  <%= label_tag(:term, "Search") %>
+  <br><br>
+  <%= text_field_tag :term, nil, :required => true %>
+  <br>
+  <span> <%= submit_tag "Next", :class => "submit" %> </span>
+<% end %>
+
+</main>
+<script>
+
+var input = document.getElementById("term");
+input.focus();
+input.select();
+
+
+</script>

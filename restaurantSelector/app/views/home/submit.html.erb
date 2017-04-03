@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<body>
+  <h1>
+    <% response = @response; %>
+    <%= "Found #{response["total"]} matches to your criteria!" %>
+  </h1>
+  <br>
+
+  <div id="modal"></div>
+
+  <nav id="responseBox">
+    <% response["businesses"].each do |x| %>
+      <button id="select" onclick="showModal(this)" data-name="<%= "#{x["name"]}"%>" data-img="<%= "#{x["image_url"]}"%>"
+         data-phone="<%= "#{x["phone"]}" %>" data-url="<%= "#{x["url"]}"%>" data-rating="<%="#{x["rating"]}"%>"
+         data-street="<%= "#{x["location"]["address1"]}" %>" data-city="<%= "#{x["location"]["city"]}" %>"
+         data-state="<%= "#{x["location"]["state"]}" %>" data-zip="<%= "#{x["location"]["zip_code"]}" %>">
+        <%= "#{x["name"]}"%>
+      </button>
+    <% end %>
+  </nav>
+
+
+</body>
+</html>
+
+
+<script>
+
+
+function showModal(button) {
+  var name = button.getAttribute("data-name");
+  var image = button.getAttribute("data-img");
+  var phone = button.getAttribute("data-phone");
+  phone = phone.substring(2, phone.length);
+  pfirst = phone.substring(0,3);
+  pmid = phone.substring(3, 6);
+  plast = phone.substring(6, phone.length);
+  phone = pfirst + "-" + pmid + "-" + plast;
+  var url = button.getAttribute("data-url");
+  var rating = button.getAttribute("data-rating");
+  console.log("Rating: " + rating);
+  var street = button.getAttribute("data-street");
+  var city = button.getAttribute("data-city");
+  var state = button.getAttribute("data-state");
+  var zip = button.getAttribute("data-zip");
+
+  var modal = document.getElementById("modal");
+  //have to remove the old one first so that multiple modal_contents dont get created.
+  var mc = document.getElementById("modal-content");
+  if (mc) {
+    modal.removeChild(mc);
+  }
+  var modal_content = document.createElement("div");
+  modal_content.id = "modal-content";
+  modal.appendChild(modal_content);
+
+  var content_header = document.createElement("div");
+  content_header.id = "content_header";
+  var content_content = document.createElement("div");
+  content_content.id = "content_content";
+  var content_base = document.createElement("div");
+  content_base.id = "content_base";
+
+  modal_content.appendChild(content_header);
+  modal_content.appendChild(content_content);
+  modal_content.appendChild(content_base);
+
+  var n = document.createElement("h3");
+  n.innerHTML = name;
+  if (name.length <=10) {
+    n.style.fontSize = "300%";
+  } else if (name.length > 20) {
+    n.style.fontSize = "150%";
+  }
+  content_header.appendChild(n);
+
+  if (image != "") { //only add an image section if there is an image for the restaurant.
+    var im = document.createElement("img");
+    im.src = image;
+    im.id = "image";
+    content_header.appendChild(im);
+  } else {
+    n.style.width = "100%";
+  }
+
+  var ratePic = document.createElement("img");
+  ratePic.id = "ratingImage";
+  ratePic.src = getRatingPic(rating);
+  content_content.appendChild(ratePic);
+
+  var pho = document.createElement("h4");
+  pho.innerHTML = "Phone Number: " + phone;
+  content_content.appendChild(pho);
+
+  var u = document.createElement("h4");
+  u.innerHTML = "Website: ";
+  var web = document.createElement("a");
+  web.href = url;
+  web.innerHTML = name;
+  u.appendChild(web);
+  content_content.appendChild(u);
+
+  var address = document.createElement("h4");
+  address.innerHTML = "Address: " + street + ", " + city + ", " + state + " " + zip;
+  content_content.appendChild(address);
+
+  var btn = document.createElement("button");
+  btn.id = "close";
+  btn.innerHTML = "Close";
+  btn.onclick = function () {
+    modal.style.display = "none";
+  };
+  content_base.appendChild(btn);
+
+
+  modal.style.display = "block";
+}
+
+function getRatingPic(rating) {
+  rating = parseFloat(rating);
+  switch (rating) {
+    case 0:
+      return "<%= image_path("regular/regular_0.png") %>";
+      break;
+    case 1:
+      return "<%= image_path("regular/regular_1.png") %>";
+      break;
+    case 1.5:
+      return "<%= image_path("regular/regular_1_half.png") %>";
+      break;
+    case 2:
+      return "<%= image_path("regular/regular_2.png") %>";
+      break;
+    case 2.5:
+      return "<%= image_path("regular/regular_2_half.png")%>";
+      break;
+    case 3:
+      return "<%= image_path("regular/regular_3.png") %>";
+      break;
+    case 3.5:
+      return "<%= image_path("regular/regular_3_half.png") %>";
+      break;
+    case 4:
+      return "<%= image_path("regular/regular_4.png") %>";
+      break;
+    case 4.5:
+      return "<%= image_path("regular/regular_4_half.png") %>";
+      break;
+    case 5:
+      return "<%= image_path("regular/regular_5.png") %>";
+      break;
+    default:
+      return "<%= image_path("regular/regular_3.png") %>";
+      break;
+  }
+}
+
+
+
+function getLocation() {
+   var latitude = position.coords.latitude;
+   var longitude = position.coords.longitude;
+   document.getElementById("geolocation").innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude;
+
+}
+
+</script>

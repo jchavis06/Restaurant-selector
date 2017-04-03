@@ -5,8 +5,132 @@
     <title></title>
   </head>
   <body>
-    <button onclick="myFunction()">Click me please!</button>
-    <script src="selector.js"></script>
-    <p id = "id"> This is a paragraph to see if this shit really works! </p>
+    <link rel="stylesheet" type="text/css" href="selector.css">
+    <h1 id="header">Restaurant Selector</h1>
+
+
+    <h2 id="distance">Distance willing to travel</h2>
+    <input id="radiusSelector" type="range" min="0" max="20" step="1" value="0" onchange="displayMiles(this.value)">
+    <span id="range">0 miles</span>
+
+    <h2 >Type of Dining</h2>
+    <div id="diningSelector">
+      <button id="dining" onChange="diningSelector(this)">Carryout</button>
+      <button id="dining" onChange="diningSelector(this)">Dine In</button>
+      <button id="dining" onChange="diningSelector(this)">Delivery</button>
+    </div>
+
+
+    <h2>Rating Required</h2>
+    <input id = "ratingSelector" type="range" min="0" max ="5" step = ".5" value="0" onChange= "displayRating(this.value)">
+    <span id="rating">0 Stars</span>
+
+
+    <h2>Money Willing to Spend</h2>
+    <input id="moneySelector" type="range" min="1" max="4" step="1" value="1" onChange= "business_search()">
+    <span id="money">$</span>
+
+
+
+
+
+    <script>
+          var radius = 0;
+          var diningOption = 0;
+          var reviews = 0;
+          var money = 1;
+          var foodType = "chicken?";
+          var xmlHttp = new XMLHttpRequest();
+          var apiUrl = "https://api.yelp.com/v3/";
+          var apiKey = "Bearer k-yhjzLkLb8bSrgX59dJx4TkV-MT5vTK6OgY1z5d-iOI6Tuh3ZoeRX-FeWWpt-Af0znVn0zckwVLWS9s-EsIhNhfosggVPH7Fg_UDwVRSn2X3-x2d4cpK2_TMJ3OWHYx";
+
+
+        function displayMiles(miles) {
+          radius = miles;
+          document.getElementById("range").innerHTML = miles + " miles";
+        }
+
+        function displayRating(rating) {
+          reviews = rating;
+          document.getElementById("rating").innerHTML = rating + " stars";
+        }
+
+        function displayMoney(money) {
+          this.money = money;
+          var str = "";
+          var i;
+          for (i = 1; i <= money; i ++) {
+            str = str.concat("$");
+          }
+          console.log(str);
+          document.getElementById("money").innerHTML = str;
+        }
+
+        function business_search () {
+          xmlHttp.open("GET",""+ apiUrl + "business/search", true);
+          xmlHttp.withCredentials = true;
+          xmlHttp.onload = function() {
+            var responseText = xmlHttp.responseText;
+            console.log(responseText);
+          }
+
+          xmlHttp.onerror = function() {
+            console.log("There was an error");
+          }
+
+
+          //xmlHttp.setRequestHeader("Authorization", apiKey);
+          //xmlHttp.setRequestHeader("term", "fast food");
+          //xmlHttp.setRequestHeader("location", "perry hall");
+          //xmlHttp.withCredentials = true;
+          xmlHttp.send();
+
+
+          xmlHttp.addEventListener("readystatechange", processRequest, false);
+
+
+
+          //console.log("status: " + xmlHttp.status);
+          //console.log(" Helllllllo   :" + xmlHttp.responseText + "bye");
+          //var response = JSON.parse(xmlHttp.responseText);
+        //  console.log(response);
+        }
+
+        function processRequest(e) {
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            var response = JSON.parse(xmlHttp.responseText);
+            alert(response.ip);
+          }
+
+
+        }
+
+        function autocomplete (text) {
+
+
+        }
+
+        function getReviews(business_id) {
+
+
+        }
+
+        function detailedBusinessInfo(business_id) {
+
+
+        }
+
+
+        function search_by_transaction_type (type) {
+
+
+        }
+
+
+
+
+
+
+    </script>
   </body>
 </html>
